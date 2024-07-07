@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "bridge-sim"
+version = "0.0.1"
+description = "Truss Bridge Simulator"
+authors = ["Atticus Martin-King Tan <atticus@irrationalidiom.com>"]
+license = "GPLv3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
