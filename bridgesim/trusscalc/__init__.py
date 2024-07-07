@@ -1,0 +1,1 @@
+# Source code taken from: https://github.com/lorcan2440/Simple-Truss-Calculator/
