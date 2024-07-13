@@ -17,7 +17,10 @@ import re
 import os
 
 # local imports
-import utils_truss
+from . import utils_truss
+
+import matplotlib
+matplotlib.use("Agg")
 
 # external modules
 from matplotlib import pyplot as plt  # $ pip install matplotlib
@@ -1271,9 +1274,13 @@ def plot_diagram(truss: Truss, results: Result, **kwargs) -> None:
     sig_figs: int = kwargs.get("sig_figs", 4)
     show_reactions: bool = kwargs.get("show_reactions", True)
     forces_on_bars: bool = kwargs.get("forces_on_bars", True)
+    save_to: str = kwargs.get("save_to", None)
+    save_to_format: str = kwargs.get("save_to_format", "svg")
     colour_coding_by_stress_limit: bool = kwargs.get(
         "colour_coding_by_stress_limit", True
     )
+
+    plt.rcParams['figure.figsize'] = [20, 10]
 
     # Find a suitable length-scale to make the annotations look nicer.
     # All drawing dimensions are relative to this. As a rough value, this is 10% of the average bar length.
@@ -1471,10 +1478,11 @@ def plot_diagram(truss: Truss, results: Result, **kwargs) -> None:
     # Graphical improvements
     AXES_COLOUR = "#BBBBBB"  # light grey
 
-    plt.style.use("./proplot_style.mplstyle")
+    plt.style.use(os.path.dirname(__file__) + "/proplot_style.mplstyle")
     plt.title(truss.name)
-    plt.legend(loc="upper right")
-    plt.autoscale()
+
+    #plt.legend(loc="upper right")
+    plt.autoscale(tight=False)
     plt.axis("equal")
     plt.xlabel(f"$x$-position / {truss.units[1].value}")
     plt.ylabel(f"$y$-position / {truss.units[1].value}")
@@ -1493,7 +1501,10 @@ def plot_diagram(truss: Truss, results: Result, **kwargs) -> None:
     if full_screen:
         utils_truss.set_matplotlib_fullscreen()
 
-    plt.show()
+    if not save_to:
+        plt.show()
+    else:
+        plt.savefig(save_to, format=save_to_format)
 
     # HACK: if this is not included, subsequent plots will not inherit some of the
     # stylesheet properties for some reason.
