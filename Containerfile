@@ -19,7 +19,9 @@ WORKDIR /app
 
 CMD ["/app/.venv/bin/python", "-m", "bridgesim.main"]
 
-ENV PORT=8080
+EXPOSE 80
+
+ENV PORT=80
 ENV HOST=0.0.0.0
 ENV ENV=PROD
 
