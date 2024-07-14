@@ -17,10 +17,10 @@ if cfg.ENV == "PROD":
 
 def layout() -> html.Div:
     return dbc.Container([
-        html.H1("Truss Bridge Simulator"),
-        html.H3("By Atticus Martin-King Tan"),
-
-        html.Hr(),
+        dbc.Row([
+            dbc.Col(html.H1("Truss Bridge Simulator")),
+            dbc.Col(html.H3("By Atticus Martin-King Tan"), style={'text-align': 'right', 'padding-top': '12px'}),
+        ]),
 
         html.Div([
             dbc.Row([
@@ -41,9 +41,16 @@ def layout() -> html.Div:
             ]),
         ], className='mb-3'),
 
+        html.Div(id='bridge'),
+
         html.Hr(),
 
-        html.Div(id='bridge')
+        html.Div([
+            dbc.Row([
+                dbc.Col(html.A("Source Code", href="https://github.com/lmartinking/bridge-sim")),
+                dbc.Col(html.P("Made with ❤️ by Atticus & Dad", style={'text-align': 'right'}))
+            ])
+        ], className='mb-3')
     ])
 
 
