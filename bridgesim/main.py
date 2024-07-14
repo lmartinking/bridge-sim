@@ -75,7 +75,9 @@ def main():
     import logging
     logging.basicConfig(level=logging.INFO)
 
-    app.run_server(debug=True, host=cfg.HOST, port=cfg.PORT, dev_tools_ui=True, dev_tools_hot_reload=True)
+    is_dev = cfg.ENV != "PROD"
+
+    app.run_server(debug=is_dev, host=cfg.HOST, port=cfg.PORT, dev_tools_ui=is_dev, dev_tools_hot_reload=is_dev)
 
 
 if __name__ == "__main__":

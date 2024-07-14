@@ -3,7 +3,7 @@ import io
 from .trusscalc.truss import Result, init_truss, Truss, plot_diagram
 
 def generate_bridge(width: float, height: float, elements: int, load: float) -> Truss:
-    t = init_truss('bridge truss')
+    t = init_truss('Truss Bridge')
 
     width = width * 1000.0
     height = height * 1000.0
