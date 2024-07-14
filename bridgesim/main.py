@@ -17,11 +17,11 @@ if cfg.ENV == "PROD":
 
 def layout() -> html.Div:
     return dbc.Container([
-        html.H1("Bridge Simulator"),
+        html.H1("Truss Bridge Simulator"),
         html.H3("By Atticus Martin-King Tan"),
-        
+
         html.Hr(),
-        
+
         html.Div([
             dbc.Row([
                 dbc.Label("Bridge Width (metres)", html_for='bridge-width', width=2),
@@ -69,6 +69,7 @@ def render_bridge(width, height, truss_elements, load):
 
 
 app.layout = layout
+app.title = "Truss Bridge Simulator"
 
 
 def main():
