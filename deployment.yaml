@@ -16,8 +16,8 @@ spec:
         - name: bridge-sim-container
           image: "ghcr.io/lmartinking/bridge-sim:latest"
           env:
-            - name: REQUESTS_PATHNAME_PREFIX
-              value: "/bridge-sim"
+            - name: DASH_URL_BASE_PATHNAME
+              value: "/bridge-sim/"
 ---
 apiVersion: v1
 kind: Service
@@ -48,7 +48,7 @@ metadata:
   name: bridge-sim-ingress
   annotations:
     ingress.kubernetes.io/class: "traefik"
-    traefik.ingress.kubernetes.io/router.middlewares: bridge-sim-middleware@kubernetescrd  # {namespace}-{name}@kubernetescrd
+    #traefik.ingress.kubernetes.io/router.middlewares: bridge-sim-middleware@kubernetescrd  # {namespace}-{name}@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
