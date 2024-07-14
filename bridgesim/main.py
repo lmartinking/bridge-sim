@@ -9,7 +9,7 @@ from . import config as cfg
 
 from .generator import generate_bridge_svg
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], requests_pathname_prefix=cfg.REQUESTS_PATHNAME_PREFIX)
 
 if cfg.ENV == "PROD":
     app.config.suppress_callback_exceptions = True

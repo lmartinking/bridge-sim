@@ -15,6 +15,9 @@ spec:
       containers:
         - name: bridge-sim-container
           image: "ghcr.io/lmartinking/bridge-sim:latest"
+          env:
+            - name: REQUESTS_PATHNAME_PREFIX
+              value: "/bridge-sim"
 ---
 apiVersion: v1
 kind: Service
@@ -27,18 +30,18 @@ spec:
   selector:
     app: bridge-sim
 ---
-# This middleware is used to strip "/quik" from the HTTP request path,
-# as the container itself does not know what its route prefix is.
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: middleware
-spec:
-  stripPrefix:
-    forceSlash: false
-    prefixes:
-      - /bridge-sim
----
+# # This middleware is used to strip "/quik" from the HTTP request path,
+# # as the container itself does not know what its route prefix is.
+# apiVersion: traefik.io/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: middleware
+# spec:
+#   stripPrefix:
+#     forceSlash: false
+#     prefixes:
+#       - /bridge-sim
+# ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
