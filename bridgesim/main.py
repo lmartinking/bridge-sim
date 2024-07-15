@@ -1,5 +1,6 @@
 from typing import List, Any
 
+import math
 import base64
 
 from dash import Dash, html, dcc, Output, Input
@@ -24,7 +25,7 @@ def layout() -> html.Div:
 
         html.Div([
             dbc.Row([
-                dbc.Label("Bridge Width (metres)", html_for='bridge-width', width=2),
+                dbc.Label("Bridge Span (metres)", html_for='bridge-width', width=2),
                 dbc.Col(dcc.Slider(min=10, max=50, step=1, value=10, id='bridge-width'), width=10)
             ]),
             dbc.Row([
@@ -32,12 +33,12 @@ def layout() -> html.Div:
                 dbc.Col(dcc.Slider(min=1, max=5, step=0.5, value=1, id='bridge-height'), width=10)
             ]),
             dbc.Row([
-                dbc.Label("Bridge Truss Elements", html_for='bridge-truss-elements', width=2),
-                dbc.Col(dcc.Slider(min=3, max=10, step=1, value=3, id='bridge-truss-elements'), width=10)
+                dbc.Label("Number of Triangles", html_for='bridge-triangles', width=2),
+                dbc.Col(dcc.Slider(min=3, max=25, step=2, value=3, id='bridge-triangles'), width=10)
             ]),
             dbc.Row([
                 dbc.Label("Bridge Load (kN)", html_for='bridge-load', width=2),
-                dbc.Col(dcc.Slider(min=0, max=1, step=0.1, value=0.0, id='bridge-load'), width=10)
+                dbc.Col(dcc.Slider(min=0, max=2, step=0.1, value=0.0, id='bridge-load'), width=10)
             ]),
         ], className='mb-3'),
 
@@ -58,14 +59,14 @@ def layout() -> html.Div:
     Output('bridge', 'children'),
     Input('bridge-width', 'value'),
     Input('bridge-height', 'value'),
-    Input('bridge-truss-elements', 'value'),
+    Input('bridge-triangles', 'value'),
     Input('bridge-load', 'value')
 )
-def render_bridge(width, height, truss_elements, load):
+def render_bridge(width, height, truss_triangles, load):
     load = float(load)
     width = float(width)
     height = float(height)
-    truss_elements = int(truss_elements)
+    truss_elements = math.ceil(truss_triangles / 2)  # Convert triangles to "elements"
 
     svg = generate_bridge_svg(width, height, truss_elements, load)
     svg_encoded = base64.b64encode(svg).decode('ascii')
