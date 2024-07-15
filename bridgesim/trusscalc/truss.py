@@ -1468,9 +1468,9 @@ def plot_diagram(truss: Truss, results: Result, **kwargs) -> None:
             load.joint, results=results, truss=truss
         )
         plt.text(
-            load.joint.x + LEN / 3 * math.cos(label_angle),
-            load.joint.y + LEN / 3 * math.sin(label_angle),
-            f"{load.name}: ({str(load.x)}, {str(load.y)}) {truss.units[0].value}",
+            (load.joint.x + LEN / 3 * math.cos(label_angle)),
+            (load.joint.y + LEN / 3 * math.sin(label_angle)) - 300,
+            f"{load.name}: ({str(load.x)}, {str(utils_truss.round_sigfig(load.y, sig_figs))}) {truss.units[0].value}",
             va="center",
             ha="left" if -math.pi / 2 < label_angle <= math.pi / 2 else "right",
         )
